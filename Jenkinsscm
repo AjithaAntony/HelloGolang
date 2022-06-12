@@ -4,7 +4,7 @@ pipeline {
 
         registry = "ajithaantony/hellogolang_12_june" 
 
-        DOCKERHUB_CREDENTIALS=credentials('Docker_cred')
+        DOCKERHUB_CREDENTIALS=credentials('Dockerhub_Cred')
 
         dockerImage = '' 
 
