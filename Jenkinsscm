@@ -3,7 +3,7 @@ environment {
 
         registry = "ajithaantony/hellogolang_12_june" 
 
-        DOCKERHUB_CREDENTIALS=credentials('Dockerhub_Cred')
+        registryCredential=credentials('Dockerhub_Cred')
 
         dockerImage = '' 
 
