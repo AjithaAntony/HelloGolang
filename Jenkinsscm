@@ -1,6 +1,5 @@
 pipeline {
-    agent any
-    environment { 
+environment { 
 
         registry = "ajithaantony/hellogolang_12_june" 
 
@@ -9,6 +8,8 @@ pipeline {
         dockerImage = '' 
 
     }
+    agent any
+    
 
     stages {
         stage('CheckoutSCM') {
@@ -24,21 +25,19 @@ pipeline {
                 }
             }
         }
-     stage("Login ") {
-            steps {
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-            }
-        }
+   
       stage("Push image") {
             steps {
             	
                 script {
-                     
+                        docker.withRegistry( '', registryCredential ) { 
                             dockerImage.push("latest")
                             dockerImage.push("${env.BUILD_ID}")
                     }
                 }
             }
+            
+           }
         
 
     
