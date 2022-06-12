@@ -4,7 +4,7 @@ pipeline {
 
         registry = "ajithaantony/hellogolang_12_june" 
 
-        registryCredential = 'Docker_cred' 
+        DOCKERHUB_CREDENTIALS=credentials('Docker_cred')
 
         dockerImage = '' 
 
@@ -27,8 +27,11 @@ pipeline {
     
       stage("Push image") {
             steps {
+            
+            
+			
                 script {
-                    docker.withRegistry( '', registryCredential ) {
+                    sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin' {
                             dockerImage.push("latest")
                             dockerImage.push("${env.BUILD_ID}")
                     }
