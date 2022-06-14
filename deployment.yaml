@@ -1,31 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: esp-echo
+  name: my-go-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: esp-echo
+      app: go-app
   template:
     metadata:
       labels:
-        app: esp-echo
+        app: go-app
     spec:
       containers:
-      # [START esp]
-      - name: esp
-        image: gcr.io/endpoints-release/endpoints-runtime:1
-        args: [
-          "--http_port", "8081",
-          "--backend", "127.0.0.1:8080",
-          "--service", "SERVICE_NAME",
-          "--rollout_strategy", "managed",
-        ]
-      # [END esp]
+      - name: go-app-container
+        image: ajithaantony/hellogolang_12_june
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
         ports:
-          - containerPort: 8081
-      - name: echo
-        image: gcr.io/google-samples/echo-go:1.0
-        ports:
-          - containerPort: 8080
+        - containerPort: 3000
